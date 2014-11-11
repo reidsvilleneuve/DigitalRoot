@@ -71,6 +71,14 @@ namespace DigitalRoot
         /// <returns>The digital root, or -1 if input is invalid.</returns>
         static int DigitalRoot2(string rootThis)
         {
+            
+            /* ANY single character in the rootThis string is NOT a number, return -1.
+               If the length of rootThis is more than 1...
+                 -Convert the value of the first two characters in rootThis to int, and add them together.
+                 -Convert that sum to a string and add it to end of the rootThis string.
+                 -Remove the first two values of rootThis.
+                   +(Their total is at the end of the string, so it remains mathematically stable.) */
+
             if (rootThis.All(x => !char.IsNumber(x))) return -1;
             while (rootThis.Length > 1) rootThis = (rootThis + (int.Parse(rootThis[0].ToString()) + int.Parse(rootThis[1].ToString()))).Remove(0, 2);
             return int.Parse(rootThis);
